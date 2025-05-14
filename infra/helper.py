@@ -1448,6 +1448,7 @@ def run_fuzzer(args):
       '%s:/out' % args.project.out,
       '-t',
       BASE_RUNNER_IMAGE,
+      'timeout' , '4h' , 
       'run_fuzzer',
       args.fuzzer_name,
   ] + args.fuzzer_args)
