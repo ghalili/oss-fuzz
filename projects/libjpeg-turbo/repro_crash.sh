@@ -23,10 +23,13 @@ cmake -G"Unix Makefiles" \
   -DCMAKE_C_FLAGS="-fsanitize=undefined -g" ..
 make -j$(nproc)
 
-# Step 5: Copy repro.c and compile it
-cp ../repro.c .
-clang -fsanitize=undefined -I../ -I../src -o repro repro.c -L. -ljpeg
+# Step 5: Compile the PoC from original location
 
-# Step 6: Run crash repro
-./repro ../../crash.jpg
+clang -fsanitize=undefined \
+  -Ilibjpeg-turbo -Ilibjpeg-turbo/src \
+  -o repro projects/libjpeg-turbo/repro.c \
+  -Llibjpeg-turbo/build -ljpeg
+cd projects/libjpeg-turbo/
+# Step 6: Run and reproduce the crash
+./repro ~/crash_repro/crash.jpg
 
