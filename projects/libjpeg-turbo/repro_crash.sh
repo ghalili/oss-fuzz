@@ -23,13 +23,13 @@ cmake -G"Unix Makefiles" \
   -DCMAKE_C_FLAGS="-fsanitize=undefined -g" ..
 make -j$(nproc)
 
-# Step 5: Compile the PoC from original location
-
+# Step 5: Compile the PoC from outside (adjust path to repro.c)
+cd ~/crash_repro
 clang -fsanitize=undefined \
   -Ilibjpeg-turbo -Ilibjpeg-turbo/src \
-  -o repro projects/libjpeg-turbo/repro.c \
+  -o repro oss-fuzz/projects/libjpeg-turbo/repro.c \
   -Llibjpeg-turbo/build -ljpeg
-cd projects/libjpeg-turbo/
+
 # Step 6: Run and reproduce the crash
-./repro ~/crash_repro/crash.jpg
+./repro crash.jpg
 
