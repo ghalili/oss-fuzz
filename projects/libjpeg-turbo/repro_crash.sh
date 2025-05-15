@@ -24,7 +24,7 @@ cmake -G"Unix Makefiles" \
 make -j$(nproc)
 
 # Step 5: Compile the PoC from original location
-cd ~/crash_repro/oss-fuzz
+
 clang -fsanitize=undefined \
   -Ilibjpeg-turbo -Ilibjpeg-turbo/src \
   -o repro projects/libjpeg-turbo/repro.c \
