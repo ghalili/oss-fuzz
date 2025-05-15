@@ -34,3 +34,9 @@ RUN cat fuzz/branches.txt | while read branch; do \
 RUN rm -rf seed-corpora
 
 COPY build.sh $SRC/
+# Copy the crash reproducer script and source file into the container
+COPY repro.c /src/repro.c
+COPY repro_crash.sh /src/repro_crash.sh
+
+# Make the script executable
+RUN chmod +x /src/repro_crash.sh
